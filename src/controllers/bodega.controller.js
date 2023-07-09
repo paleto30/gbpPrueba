@@ -6,7 +6,7 @@ import getConnection from "../config.js"
 const obtenerBodegas = async (req,res)=>{
     try {
         const conn = await getConnection();
-        const bodegas = await conn.query(`SELECT * FROM bodegas ORDER BY nombre ASC`);  
+        const bodegas = await conn.query(`SELECT id, nombre, id_responsable, estado, created_by  FROM bodegas ORDER BY nombre ASC`);  
         res.json(bodegas)
     } catch (error) {
         res.status(500).send(error.message)
@@ -43,7 +43,7 @@ const insertarBodega = async(req, res)=>{
         const validator = Joi.object({
             nombre: Joi.string().required().max(255),
             id_responsable: Joi.number().required(),
-            estado: Joi.number().integer().max(1).required(),
+            estado: Joi.number().valid(0,1).required(),
             created_by: Joi.number().integer()
         })
         // data-validation  
@@ -73,6 +73,14 @@ const insertarBodega = async(req, res)=>{
 
 
 
+
+
+/*---------------------------------------------------------------
+ |     metodos para gestionar las bodegas
+ |---------------------------------------------------------------
+ |  en esta seccion se van a exportar todas las fuinciones que 
+ |  permiten acciones sobre la tabla de  bodegas
+*/ 
 const httpMethods = {
     obtenerBodegas,
     insertarBodega
