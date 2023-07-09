@@ -7,7 +7,7 @@ import funciones from "../utils/funciones.js";
 
 const insertarInventario = async(req, res)=>{
 
-    const conn = await getConnection();
+   
     const validator = Joi.object({
         id_bodega: Joi.number().integer().required(),
         id_producto: Joi.number().integer().required(),
@@ -21,6 +21,7 @@ const insertarInventario = async(req, res)=>{
     }
 
     try {
+        const conn = await getConnection();
         const query = `SELECT * FROM inventarios WHERE id_bodega =  ? AND  id_producto = ?`
         const inventario = await conn.query(query,[value.id_bodega,value.id_producto])
 
