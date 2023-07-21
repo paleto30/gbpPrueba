@@ -2,6 +2,9 @@ import { Router } from "express";
 import bodegaController from "../controllers/bodega.controller.js";
 import productoController from "../controllers/producto.controller.js"
 import inventarioController from "../controllers/inventario.controller.js";
+
+
+
 const router = Router();
 
 
@@ -51,6 +54,9 @@ router.post('/productos/',productoController.insertarProducto);
 */
 // ruta para hacer un registro a la tabla inventarios
 router.post('/inventario/', inventarioController.insertarInventario);
+//ruta para trasladar un producto de una bodega a otra
+router.post('/inventario/traslado/',inventarioController.trasladarProducto);
+
 
 
 
